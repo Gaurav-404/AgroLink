@@ -1,0 +1,342 @@
+<!-- <app-navbar></app-navbar> -->
+<div class="home-container">
+
+  <div class="content-wrapper">
+    
+
+    <!-- Animated Floating Elements -->
+    <div class="floating-elements">
+      <div class="float-icon leaf-icon animate-float-slow">🌱</div>
+      <div class="float-icon wheat-icon animate-float-medium">🌾</div>
+      <div class="float-icon sun-icon animate-float-fast">☀️</div>
+      <div class="float-icon tractor-icon animate-float-slow">🚜</div>
+      <div class="float-icon drop-icon animate-float-medium">💧</div>
+      <div class="float-icon seed-icon animate-float-fast">🌿</div>
+      <div class="float-icon flower-icon animate-float-slow">🌸</div>
+      <div class="float-icon fruit-icon animate-float-medium">🍎</div>
+    </div>
+
+    <!-- Sliding Image Carousel (replaces static gallery) -->
+    <div class="carousel-container">
+      <div class="carousel">
+        <div class="carousel-track" #carouselTrack>
+          <!-- Slide 1 -->
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                 alt="Happy farmer" 
+                 class="carousel-image">
+            <div class="carousel-overlay">
+              <span class="carousel-tag">🌾 Happy Farmers </span>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                 alt="Agrochemical seller" 
+                 class="carousel-image">
+            <div class="carousel-overlay">
+              <span class="carousel-tag">📦 Quality Products</span>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="carousel-slide">
+            <img src="https://agrospectrumindia.com/wp-content/uploads/2023/02/agri-waste-unsplash.com_.jpg" 
+                 alt="Sustainable farming" 
+                 class="carousel-image">
+            <div class="carousel-overlay">
+              <span class="carousel-tag">🌱 Sustainable</span>
+            </div>
+          </div>
+          <!-- Slide 4 -->
+          <div class="carousel-slide">
+            <img src="https://www.land-irg.org/sites/default/files/styles/hero_carousel/public/images/2025-08/federico-respini-sYffw0LNr7s-unsplash%20%281%29.jpg?itok=KjWLjOt1" 
+                 alt="Farming community" 
+                 class="carousel-image">
+            <div class="carousel-overlay">
+              <span class="carousel-tag">🤝 Community</span>
+            </div>
+          </div>
+          <!-- Slide 5 (extra for variety) -->
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                 alt="Fresh produce" 
+                 class="carousel-image">
+            <div class="carousel-overlay">
+              <span class="carousel-tag">🍎 Fresh Produce</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Carousel Navigation Dots -->
+     <!-- Carousel Navigation Dots (SINGLE SET) -->
+     <div class="carousel-dots">
+      <span class="dot" [class.active]="currentSlide === 0" (click)="goToSlide(0)"></span>
+      <span class="dot" [class.active]="currentSlide === 1" (click)="goToSlide(1)"></span>
+      <span class="dot" [class.active]="currentSlide === 2" (click)="goToSlide(2)"></span>
+      <span class="dot" [class.active]="currentSlide === 3" (click)="goToSlide(3)"></span>
+      <span class="dot" [class.active]="currentSlide === 4" (click)="goToSlide(4)"></span>
+    </div> 
+    
+    <!-- Carousel Arrows (SINGLE SET) -->
+    <button class="carousel-arrow prev" (click)="prevSlide()" aria-label="Previous slide">←</button>
+    <button class="carousel-arrow next" (click)="nextSlide()" aria-label="Next slide">→</button>
+    
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      
+      <!-- Hero Badge -->
+      <div class="hero-badge animate-pulse-glow">
+        <span class="badge-icon">🚀</span>
+        <span class="badge-text">Welcome to the future of farming</span>
+      </div>
+
+      <!-- Title -->
+      <h1 class="gradient-title">
+        <span class="title-word animate-pop-in">Agro</span>
+        <span class="title-word highlight animate-slide-in">Link</span>
+      </h1>
+
+      <!-- Animated Text -->
+      <div class="hero-subtitle-container">
+        <p class="hero-subtitle">
+          <span class="static-text">Connecting</span>
+          <span class="animated-text-wrapper">
+            <span class="animated-text farmers">farmers</span>
+            <span class="animated-text sellers">sellers</span>
+            <span class="animated-text growers">growers</span>
+            <span class="animated-text distributors">distributors</span>
+          </span>
+        </p>
+      </div>
+
+      <p class="hero-description animate-fade-in">
+        for faster, smarter, and more profitable agriculture
+      </p>
+      
+      <!-- CTA Buttons -->
+      <div class="auth-buttons">
+        <a href="/login" class="btn btn-primary btn-glow">
+          <span class="btn-icon">✨</span>
+          <span class="btn-text">Login</span>
+          <span class="btn-shine"></span>
+        </a>
+        <a href="/register" class="btn btn-outline btn-pulse">
+          <span class="btn-icon">🌿</span>
+          <span class="btn-text">Create Account</span>
+        </a>
+      </div>
+
+      <!-- Stats Counter -->
+      <div class="stats-container">
+        <div class="stat-item counter-item">
+          <div class="stat-number">5,000+</div>
+          <div class="stat-label">Farmers</div>
+          <div class="stat-trend positive">↑ 25%</div>
+        </div>
+        <div class="stat-item counter-item">
+          <div class="stat-number">1,200+</div>
+          <div class="stat-label">Sellers</div>
+          <div class="stat-trend positive">↑ 40%</div>
+        </div>
+        <div class="stat-item counter-item">
+          <div class="stat-number">15,000+</div>
+          <div class="stat-label">Transactions</div>
+          <div class="stat-trend positive">↑ 60%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="cards-section">
+      <div class="section-header">
+        <h2 class="section-title slide-in">Choose Your Path</h2>
+        <p class="section-subtitle fade-in">Join the agricultural revolution today</p>
+      </div>
+
+      <div class="cards-grid">
+        
+        <!-- Farmer Card -->
+        <div class="card card-3d">
+          <div class="card-badge">Most Popular</div>
+          <div class="card-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Happy farmer" 
+                 class="card-image" 
+                 loading="lazy">
+            <div class="image-overlay"></div>
+            <div class="card-icon">👨‍🌾</div>
+          </div>
+          <div class="card-content">
+            <h2>For Farmers</h2>
+            <div class="feature-list">
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Request agrochemicals instantly</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">📊</span>
+                <span>Real-time request tracking</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">📱</span>
+                <span>Crop management system</span>
+              </div>
+            </div>
+            
+            <a
+            routerLink="/register"
+            [queryParams]="{ role: 'Farmer' }"
+            class="btn btn-primary btn-block">
+            Join as Farmer →
+            </a>
+
+          </div>
+        </div>
+
+        <!-- Seller Card -->
+        <div class="card card-3d">
+          <div class="card-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Agrochemical seller" 
+                 class="card-image" 
+                 loading="lazy">
+            <div class="image-overlay"></div>
+            <div class="card-icon">📦</div>
+          </div>
+          <div class="card-content">
+            <h2>For Sellers</h2>
+            <div class="feature-list">
+              <div class="feature-item">
+                <span class="feature-icon">📋</span>
+                <span>Inventory management</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">🤝</span>
+                <span>Instant request response</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">📈</span>
+                <span>Analytics & growth tools</span>
+              </div>
+            </div>
+            
+            <a
+            routerLink="/register"
+            [queryParams]="{ role: 'Seller' }"
+            class="btn btn-primary btn-block">
+            Join as Seller →
+            </a>
+
+          </div>
+        </div>
+
+        <!-- Partnership Card -->
+        <div class="card highlight-card card-3d">
+          <div class="card-image-wrapper">
+            <img src="https://agrospectrumindia.com/wp-content/uploads/2023/02/agri-waste-unsplash.com_.jpg" 
+                 alt="Partnership" 
+                 class="card-image" 
+                 loading="lazy">
+            <div class="image-overlay"></div>
+            <div class="card-icon">🤝</div>
+          </div>
+          <div class="card-content">
+            <h2>Why AgroLink?</h2>
+            <div class="feature-list">
+              <div class="feature-item">
+                <span class="feature-icon">⚡</span>
+                <span>Better communication</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">🚚</span>
+                <span>Faster delivery</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">💪</span>
+                <span>Stronger partnerships</span>
+              </div>
+            </div>
+            <a href="#features" class="btn btn-primary btn-block">
+              Explore Features →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+      <div class="section-header">
+        <h2 class="section-title">Powerful Features</h2>
+        <p class="section-subtitle">Everything you need to grow your agricultural business</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon-circle rotating">🌾</div>
+          </div>
+          <h3>Crop Management System</h3>
+          <p>Manage your crops inventory in our web page.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon-circle rotating">🧪</div>
+          </div>
+          <h3>Buy Chemicals</h3>
+          <p>Order from a range of listed chemicals to increase your crop life.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon-circle rotating">⚡</div>
+          </div>
+          <h3>Real-time Updates</h3>
+          <p>Instant notifications for requests, responses, and status changes</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon-circle rotating">📊</div>
+          </div>
+          <h3>Agrochemical Management System</h3>
+          <p>As a seller, manage your stock inventory.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon-circle rotating">🤝</div>
+          </div>
+          <h3>Request View</h3>
+          <p>Manage order requests</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <div class="feature-icon-circle rotating">🗯️</div>
+          </div>
+          <h3>Direct Communication</h3>
+          <p>Built-in feedback system for farmer-seller interaction</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section class="cta-banner">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready to grow with us?</h2>
+        <p class="cta-text">Join thousands of farmers and sellers already using AgroLink</p>
+        <div class="cta-buttons">
+          <a href="/register" class="btn btn-primary btn-large btn-glow">Get Started Today</a>
+        </div>
+      </div>
+      <div class="cta-particles"></div>
+    </section>
+  </div>
+</div>
+<router-outlet></router-outlet>

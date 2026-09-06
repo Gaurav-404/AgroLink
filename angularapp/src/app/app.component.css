@@ -1,0 +1,9 @@
+app-navbar {
+    display: block;
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 1100;          /* ← higher than bg-layer */
+    border-bottom: none;
+    box-shadow: none;
+  }

@@ -1,0 +1,48 @@
+<nav class="navbar">
+  <div class="navbar-brand" routerLink="/" aria-label="Go to Home">
+    <span class="main-title">AGROLINK</span>
+    <span class="sub-title">FARMER'S HUB</span>
+  </div>
+
+  <ul class="nav-links">
+    <li>
+      <a routerLink="/farmer/home" routerLinkActive="active">Home</a>
+    </li>
+
+    <li class="dropdown" (mouseleave)="closeDropdown()">
+      <a class="drop-trigger" 
+         (mouseenter)="openDropdown()" 
+         (click)="cancelClick($event)">
+        Crop <span class="caret">▾</span>
+      </a>
+    
+      <ul class="dropdown-menu farmer-drop" [class.open]="isCropOpen">
+        <li>
+          <a routerLink="/farmer/add-crop" (click)="closeDropdown()">Add Crop</a>
+        </li>
+        <li>
+          <a routerLink="/farmer/my-crop" (click)="closeDropdown()">My Crop</a>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <a routerLink="/farmer/agrochemicals" routerLinkActive="active">Agrochemical</a>
+    </li>
+
+    <li>
+      <a routerLink="/farmer/my-requests" routerLinkActive="active">My Requests</a>
+    </li>
+
+    <li>
+      <a routerLink="/farmer/view-feedbacks" routerLinkActive="active">Feedback</a>
+    </li>
+
+    <li>
+      <a (click)="onLogout()">Logout</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Render farmer child routes here -->
+<router-outlet></router-outlet>

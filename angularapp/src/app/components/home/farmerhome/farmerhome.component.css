@@ -1,0 +1,194 @@
+/* ── Claude-style Welcome ── */
+.welcome-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  animation: welcomeFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.welcome-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #3b2f2f;
+  margin: 0;
+  letter-spacing: -0.5px;
+  animation: welcomeFadeUp 0.8s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  white-space: nowrap;
+}
+
+.welcome-username {
+  color: #1b5e20;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0ch;
+  border-right: 3px solid transparent;
+  vertical-align: bottom;
+  animation: cssTyping 1.4s steps(var(--chars, 12), end) 0.5s forwards;
+}
+
+@keyframes cssTyping {
+  from { max-width: 0ch; }
+  to   { max-width: calc(var(--chars, 12) * 1ch); }
+}
+
+@keyframes welcomeFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===========================================
+   UNIFORM ACTION CARDS
+=========================================== */
+
+.actions .action-card {
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.10);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.actions .action-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 45px rgba(46, 125, 50, 0.25);
+}
+
+.actions .action-card__image-wrapper {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.actions .action-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.actions .action-card:hover .action-card__image {
+  transform: scale(1.1);
+}
+
+.actions .action-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+  pointer-events: none;
+}
+
+.actions .action-card__icon {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  font-size: 2.2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  animation: actionCardIconBounce 2s infinite;
+}
+
+@keyframes actionCardIconBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+.actions .action-card__content {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.actions .action-card__title {
+  margin: 0 0 4px 0;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1b5e20;
+}
+
+.actions .action-card__features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 4px 0 8px 0;
+  flex: 1;
+}
+
+.actions .action-card__feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.actions .action-card__btn {
+  margin-top: auto;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 14px 36px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.actions .action-card__btn--primary {
+  background: linear-gradient(145deg, #4caf50, #2e7d32);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(46,125,50,0.4);
+}
+
+.actions .action-card__btn--primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(46,125,50,0.6);
+}
+
+.actions .action-card__btn--outline {
+  background: #fff;
+  color: #2e7d32;
+  border: 2px solid #4caf50;
+}
+
+.actions .action-card__btn--outline:hover {
+  background: #4caf50;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+@keyframes actionCardIn {
+  0%   { opacity: 0; transform: translateY(20px) scale(0.98); }
+  60%  { opacity: 1; transform: translateY(-4px) scale(1.01); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.actions .action-card {
+  animation: actionCardIn 600ms ease-out both;
+}
+
+@media (max-width: 480px) {
+  .actions .action-card__image-wrapper {
+    height: 200px;
+  }
+}

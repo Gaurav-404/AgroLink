@@ -1,0 +1,124 @@
+<div class="feedback-page">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-left">
+      <div class="header-icon">💬</div>
+      <div>
+        <h1 class="page-title">Seller Feedback</h1>
+        <p class="page-subtitle">Monitor and review all seller feedback in one place</p>
+      </div>
+    </div>
+    <div class="header-badge">
+      <span class="badge-dot"></span>
+      <span>{{ filteredFeedbacks.length }} Records</span>
+    </div>
+  </div>
+
+  <hr class="rule" />
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search by username or feedback..."
+        [(ngModel)]="searchTerm"
+        (input)="filter()"
+      />
+      <button class="search-clear" *ngIf="searchTerm" (click)="searchTerm=''; filter()">✕</button>
+    </div>
+
+    <div class="toolbar-right">
+      <div class="page-size-control">
+        <span class="control-label">Rows per page:</span>
+        <select
+          class="size-select"
+          [(ngModel)]="paginationPageSize"
+          (change)="onPageSizeChanged()"
+        >
+          <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid Card -->
+  <div class="grid-card">
+    <div class="feedback-grid-wrapper ag-theme-alpine" style="width: 100%; height: 560px;">
+      <ag-grid-angular
+        style="width: 100%; height: 100%;"
+        [rowData]="filteredFeedbacks"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [rowHeight]="rowHeight"
+        [pagination]="true"
+        [paginationPageSize]="paginationPageSize"
+        [animateRows]="true"
+        (gridReady)="onGridReady($event)"
+        (cellClicked)="onCellClicked($event)">
+      </ag-grid-angular>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== Modal Overlay ===== -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <span class="modal-icon">👤</span>
+        <h5 class="modal-title">User Profile</h5>
+      </div>
+      <button class="modal-close" (click)="closeModal()">✕</button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body" *ngIf="selectedUser">
+
+      <!-- Avatar -->
+      <div class="avatar-section">
+        <div class="avatar-circle">
+          {{ (selectedUser.username || 'U').charAt(0).toUpperCase() }}
+        </div>
+        <h6 class="avatar-name">{{ selectedUser.username }}</h6>
+        <span class="avatar-role">Registered User</span>
+      </div>
+
+      <div class="modal-divider"></div>
+
+      <!-- Info List -->
+      <ul class="info-list">
+        <li class="info-item">
+          <span class="info-icon">👤</span>
+          <span class="info-label">Name</span>
+          <span class="info-value">{{ selectedUser.name }}</span>
+        </li>
+        <li class="info-item">
+          <span class="info-icon">📧</span>
+          <span class="info-label">Email</span>
+          <span class="info-value email-value">{{ selectedUser.email }}</span>
+        </li>
+        <li class="info-item">
+          <span class="info-icon">📱</span>
+          <span class="info-label">Phone</span>
+          <span class="info-value">{{ selectedUser.phone }}</span>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button class="btn-close-modal" (click)="closeModal()">
+        <span>✕</span> Close
+      </button>
+    </div>
+
+  </div>
+</div>

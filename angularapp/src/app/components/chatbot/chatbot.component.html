@@ -1,0 +1,78 @@
+<!-- ── Floating Toggle Button ─────────────────────────────────────────────── -->
+<button class="chat-toggle" (click)="toggleChat()">
+  <span *ngIf="!isOpen">🌱</span>
+  <span *ngIf="isOpen">✕</span>
+</button>
+
+<!-- ── Chat Widget ────────────────────────────────────────────────────────── -->
+<div class="chat-widget" [class.open]="isOpen">
+
+  <!-- Header -->
+  <div class="chat-header">
+    <div class="header-info">
+      <div class="avatar">🌾</div>
+      <div>
+        <div class="bot-name">AgroLink Assistant</div>
+        <div class="bot-status">● Online</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button (click)="clearChat()" title="Clear chat">🗑️</button>
+      <button (click)="toggleChat()" title="Close">✕</button>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="chat-body" #chatBody>
+    <div
+      *ngFor="let msg of messages"
+      class="message-row"
+      [class.user-row]="msg.role === 'user'"
+      [class.bot-row]="msg.role === 'bot'"
+    >
+      <div class="avatar-small" *ngIf="msg.role === 'bot'">🌾</div>
+
+      <div class="bubble"
+           [class.bot-bubble]="msg.role === 'bot'"
+           [class.user-bubble]="msg.role === 'user'">
+        {{ msg.text }}
+
+        <!-- Redirect notice shown only on "login-first" messages -->
+        <div class="redirect-notice" *ngIf="msg.showLoginBtn">
+          ↪ Redirecting to Login...
+        </div>
+      </div>
+    </div>
+
+    <!-- Typing indicator -->
+    <div class="message-row bot-row" *ngIf="isLoading">
+      <div class="avatar-small">🌾</div>
+      <div class="bubble bot-bubble typing-indicator">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Suggestion chips -->
+  <div class="suggestions" *ngIf="showSuggestions && !isLoading">
+    <button *ngFor="let s of suggestions" (click)="onSuggestionClick(s.query)">
+      {{ s.label }}
+    </button>
+  </div>
+
+  <!-- Input -->
+  <div class="chat-footer">
+    <input
+      type="text"
+      [(ngModel)]="userInput"
+      (keydown)="onKeyDown($event)"
+      placeholder="Ask about AgroLink..."
+      [disabled]="isLoading"
+      maxlength="500"
+    />
+    <button class="send-btn" (click)="sendMessage()" [disabled]="isLoading || !userInput.trim()">
+      ➤
+    </button>
+  </div>
+
+</div>

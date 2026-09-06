@@ -1,0 +1,17 @@
+<!-- Public navbar only when NOT logged in -->
+<nav class="navbar" *ngIf="(isLoggedIn$ | async) === false">
+  <div class="navbar-brand" routerLink="/" aria-label="Go to Home">
+    <span class="main-title">AGROLINK</span>
+    <span class="sub-title">FARMER'S HUB</span>
+  </div>
+
+  <!-- Hamburger toggle -->
+  <button class="menu-toggle" (click)="isMenuOpen = !isMenuOpen" aria-label="Toggle Menu">
+    ☰
+  </button>
+
+  <ul class="nav-links" [class.open]="isMenuOpen">
+    <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
+    <li><a routerLink="/register" routerLinkActive="active">Register</a></li>
+  </ul>
+</nav>

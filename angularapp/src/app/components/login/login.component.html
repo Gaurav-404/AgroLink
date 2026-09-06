@@ -1,0 +1,175 @@
+<div class="login-page">
+  <!-- Animated background with particles -->
+  <div class="bg-layer">
+    <div class="bg-image"></div>
+    <div class="bg-overlay"></div>
+    <div class="floating-leaves">
+      <span class="leaf leaf-1">🌿</span>
+      <span class="leaf leaf-2">🍃</span>
+      <span class="leaf leaf-3">🌱</span>
+      <span class="leaf leaf-4">🍃</span>
+      <span class="leaf leaf-5">🌿</span>
+      <span class="leaf leaf-6">🌱</span>
+    </div>
+    
+    <!-- Floating particles -->
+    <div class="particles">
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+    </div>
+    
+    <!-- Glowing orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+  </div>
+
+  <!-- Card with enhanced animations -->
+  <div class="login-card">
+
+    <!-- Animated corner accents -->
+    <div class="corner-accent corner-tl"></div>
+    <div class="corner-accent corner-tr"></div>
+    <div class="corner-accent corner-bl"></div>
+    <div class="corner-accent corner-br"></div>
+
+    <div class="card-badge pulse-badge">
+      <span class="badge-dot"></span>
+      <span class="badge-text">Secure Farmer Portal</span>
+      <span class="badge-shine"></span>
+    </div>
+
+    <div class="brand">
+      <div class="brand-icon-wrapper">
+        <div class="brand-icon">🌾</div>
+        <div class="brand-icon-glow"></div>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">AgroLink</span>
+        <span class="brand-sub">FARMER'S HUB</span>
+      </div>
+    </div>
+
+    <div class="divider">
+      <span class="divider-line"></span>
+      <span class="divider-icon rotating">✦</span>
+      <span class="divider-line"></span>
+    </div>
+
+    <h2 class="card-title">Welcome Back</h2>
+    <p class="card-subtitle">Sign in to manage your crops &amp; chemicals</p>
+
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm" novalidate class="login-form">
+
+      <div class="form-group">
+        <div class="input-wrapper">
+          <span class="input-icon floating-icon">📧</span>
+          <input
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            required
+            email
+            #emailCtrl="ngModel"
+            placeholder="Email address"
+            class="form-input" />
+          <span class="input-focus-bar"></span>
+          <span class="input-border-animation"></span>
+        </div>
+        <div class="error-msg slide-down" *ngIf="emailCtrl.invalid && emailCtrl.touched">
+          <span class="error-icon">⚠️</span>
+          <span *ngIf="emailCtrl.errors?.['required']">Email is required</span>
+          <span *ngIf="emailCtrl.errors?.['email']">Enter a valid email</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-wrapper">
+          <span class="input-icon floating-icon">🔐</span>
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="password"
+            name="password"
+            required
+            minlength="6"
+            #passwordCtrl="ngModel"
+            placeholder="Password"
+            class="form-input" />
+          <span
+            class="password-toggle"
+            (click)="togglePassword()"
+            title="{{ showPassword ? 'Hide password' : 'Show password' }}">
+            <!-- Eye Open -->
+            <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <!-- Eye Closed -->
+            <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+              <line x1="1" y1="1" x2="23" y2="23"/>
+            </svg>
+          </span>
+          <span class="input-focus-bar"></span>
+          <span class="input-border-animation"></span>
+        </div>
+        <div class="error-msg slide-down" *ngIf="passwordCtrl.invalid && passwordCtrl.touched">
+          <span class="error-icon">⚠️</span>
+          <span *ngIf="passwordCtrl.errors?.['required']">Password is required</span>
+          <span *ngIf="passwordCtrl.errors?.['minlength']">Minimum 6 characters</span>
+        </div>
+      </div>
+
+
+      <div class="server-error-wrapper" *ngIf="errorMessage">
+        <p class="server-error shake">
+          <span class="error-icon">⚠️</span> {{ errorMessage }}
+        </p>
+      </div>
+
+      <button type="submit" class="btn-login" [disabled]="loginForm.invalid">
+        <span class="btn-iconLogin">🌱</span>
+        <span class="btn-text">Login to AgroLink</span>
+        <span class="btn-arrow">→</span>
+        <span class="btn-shine"></span>
+        <span class="btn-overlay"></span>
+      </button>
+
+    </form>
+
+    <p class="login-footer">
+      <span class="footer-text">New to AgroLink?</span>
+      <a routerLink="/register" class="register-link">
+        Create your account
+        <span class="link-arrow">→</span>
+      </a>
+    </p>
+
+    <!-- Trust indicators -->
+    <div class="trust-badges">
+      <span class="trust-badge">
+        <span class="badge-emoji">🛡️</span>
+        SSL Secure
+      </span>
+      <span class="trust-badge">
+        <span class="badge-emoji">🔒</span>
+        Encrypted
+      </span>
+      <span class="trust-badge">
+        <span class="badge-emoji">🌿</span>
+        100% Safe
+      </span>
+    </div>
+
+    <div class="card-bottom-strip"></div>
+  </div>
+
+</div>

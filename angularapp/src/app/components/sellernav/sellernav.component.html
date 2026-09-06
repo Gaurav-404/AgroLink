@@ -1,0 +1,49 @@
+<nav class="navbar">
+  <div class="navbar-brand" routerLink="/">
+    <span class="main-title">AGROLINK</span>
+    <span class="sub-title">FARMER'S HUB</span>
+  </div>
+
+  <ul class="nav-links">
+    <li>
+      <a routerLink="/seller/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    </li>
+
+    <!-- Agrochemical Dropdown (Same as Farmernav) -->
+    <li class="dropdown" (mouseleave)="closeDropdown()">
+      <a class="drop-trigger"
+         (mouseenter)="openDropdown()"
+         (click)="cancelClick($event)">
+        Agrochemical
+        <span class="caret">▾</span>
+      </a>
+
+      <ul class="dropdown-menu" [class.open]="isAgroOpen">
+        <li>
+          <a routerLink="/seller/view-chemical" routerLinkActive="active" (click)="closeDropdown()">
+            View Chemical
+          </a>
+        </li>
+        <li>
+          <a routerLink="/seller/add-chemical" routerLinkActive="active" (click)="closeDropdown()">
+            Add Chemical
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <a routerLink="/seller/requests" routerLinkActive="active">Requests</a>
+    </li>
+
+    <li>
+      <a routerLink="/seller/feedbacks" routerLinkActive="active">Feedbacks</a>
+    </li>
+
+    <li>
+      <a (click)="onLogout()">Logout</a>
+    </li>
+  </ul>
+</nav>
+
+<router-outlet></router-outlet>

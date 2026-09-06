@@ -1,0 +1,143 @@
+<div class="page-bg">
+  <div class="row justify-content-center m-0">
+    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+
+      <div class="form-card">
+
+        <div class="form-card-header">
+          <span class="header-icon">🌱</span>
+          <h5>Create New Crop</h5>
+        </div>
+
+        <div class="form-card-body">
+
+          <div *ngIf="error"
+               class="alert alert-danger d-flex align-items-center gap-2 py-2 px-3"
+               role="alert">
+            <i class="bi bi-exclamation-circle-fill flex-shrink-0"></i>
+            <span>{{ error }}</span>
+          </div>
+          <div *ngIf="success"
+               class="alert alert-success d-flex align-items-center gap-2 py-2 px-3"
+               role="alert">
+            <i class="bi bi-check-circle-fill flex-shrink-0"></i>
+            <span>{{ success }}</span>
+          </div>
+
+          <form #form="ngForm" (ngSubmit)="addCrop(form)" novalidate>
+
+            <div class="mb-3">
+              <label for="cropName" class="field-label">
+                Crop Name <span class="required-star">*</span>
+              </label>
+              <input
+                id="cropName"
+                type="text"
+                class="form-control custom-input"
+                name="cropName"
+                [(ngModel)]="formModel.cropName"
+                (blur)="formModel.cropName = formModel.cropName?.trim()"
+                required
+                minlength="2"
+                maxlength="100"
+                pattern=".*\S.*"  
+                autocomplete="off"
+                placeholder="e.g. Wheat, Sugarcane"
+                #cropNameCtrl="ngModel"
+                [class.is-invalid]="cropNameCtrl.touched && cropNameCtrl.invalid"
+              />
+              <div class="invalid-feedback">
+                <span *ngIf="cropNameCtrl.errors?.['required']"></span>
+                <span *ngIf="cropNameCtrl.errors?.['pattern']">Cannot be only spaces.</span>
+                <span *ngIf="cropNameCtrl.errors?.['minlength']">Min 2 characters required.</span>
+                <span *ngIf="cropNameCtrl.errors?.['maxlength']">Max 100 characters allowed.</span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="cropType" class="field-label">
+                Crop Type <span class="required-star">*</span>
+              </label>
+              <select
+                id="cropType"
+                class="form-select custom-input"
+                name="cropType"
+                [(ngModel)]="formModel.cropType"
+                (blur)="formModel.cropType = formModel.cropType?.trim()"
+                required
+                #cropTypeCtrl="ngModel"
+                [class.is-invalid]="cropTypeCtrl.touched && cropTypeCtrl.invalid"
+              >
+                <option value="" disabled>— Select Crop Type —</option>
+                <option *ngFor="let type of cropType" [value]="type">{{ type }}</option>
+              </select>
+              <div class="invalid-feedback">
+                <span *ngIf="cropTypeCtrl.errors?.['required']"></span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="field-label">
+                Description
+                
+              </label>
+              <textarea
+                id="description"
+                class="form-control custom-input"
+                name="description"
+                rows="3"
+                placeholder="Brief notes about this crop…"
+                [(ngModel)]="formModel.description"
+                (blur)="formModel.description = formModel.description?.trim()"
+                required
+                #descriptionCtrl="ngModel"
+                [class.is-invalid]="descriptionCtrl.touched && descriptionCtrl.invalid"
+              ></textarea>
+            </div>
+
+            <div class="mb-4">
+              <label for="plantingDate" class="field-label">
+                Planting Date &amp; Time <span class="required-star">*</span>
+              </label>
+              <input
+                id="plantingDate"
+                type="datetime-local"
+                class="form-control custom-input"
+                name="plantingDate"
+                [(ngModel)]="formModel.plantingDate"
+                (blur)="formModel.plantingDate = formModel.plantingDate?.trim?.() ?? formModel.plantingDate"
+                required
+                #plantingDateCtrl="ngModel"
+                [class.is-invalid]="plantingDateCtrl.touched && plantingDateCtrl.invalid"
+              />
+              <div class="invalid-feedback">
+                <span *ngIf="plantingDateCtrl.errors?.['required']">Date &amp; time is required.</span>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 pt-3 form-footer">
+              <button
+                type="button"
+                class="btn btn-cancel"
+                (click)="cancel()"
+                [disabled]="saving">
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="btn btn-submit"
+                [disabled]="form.invalid || saving">
+                <span *ngIf="saving"
+                      class="spinner-border spinner-border-sm me-1"
+                      role="status"></span>
+                {{ saving ? 'Saving…' : 'Add Crop' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

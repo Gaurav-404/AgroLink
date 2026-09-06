@@ -1,0 +1,98 @@
+<div class="page-bg">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-left">
+      <h1 class="page-title">
+        <span class="title-icon">💬</span>
+        My Feedbacks
+      </h1>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <!-- Search -->
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search feedbacks..."
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()"
+        />
+      </div>
+      <!-- Add Feedback -->
+      <a routerLink="/farmer/add-feedback" class="btn-add-feedback">
+        + Add Feedback
+      </a>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="empty-state">
+    <span>⏳</span>
+    Loading your feedbacks...
+  </div>
+
+  <!-- Grid Card -->
+  <div class="table-card" *ngIf="!loading">
+
+    <!-- Rows per page -->
+    <div class="grid-toolbar">
+      <span class="grid-count">{{ filteredFeedback.length }} record(s)</span>
+      <div class="page-size-control">
+        <label class="control-label">Rows per page:</label>
+        <select class="size-select" (change)="onPageSizeChanged($event)">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- AG Grid -->
+    <div class="feedback-grid-wrapper ag-theme-alpine" style="width: 100%; height: 480px;">
+      <ag-grid-angular
+        style="width: 100%; height: 100%;"
+        [rowData]="filteredFeedback"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        rowSelection="single"
+        [pagination]="true"
+        [paginationPageSize]="paginationPageSize"
+        [animateRows]="true"
+        (gridReady)="onGridReady($event)"
+        (cellClicked)="onCellClicked($event)">
+      </ag-grid-angular>
+    </div>
+
+    <!-- Empty state inside card -->
+    <div *ngIf="!loading && filteredFeedback.length === 0" class="empty-state-inner">
+      <span>📭</span>
+      No feedbacks found.
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ===== Delete Confirm Modal ===== -->
+<div class="modal-backdrop-custom" *ngIf="showDeleteModal" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+
+    <div class="modal-box-header">
+      <h5 class="modal-box-title">🗑️ Delete Feedback</h5>
+      <button class="btn-modal-x" (click)="closeModal()">✕</button>
+    </div>
+
+    <div class="modal-box-body">
+      <p class="modal-text">Are you sure you want to delete this feedback?</p>
+      <p class="modal-warning">This action cannot be undone.</p>
+    </div>
+
+    <div class="modal-box-footer">
+      <button class="btn-modal-cancel" (click)="closeModal()">Cancel</button>
+      <button class="btn-modal-danger" (click)="confirmDelete()">Delete</button>
+    </div>
+
+  </div>
+</div>

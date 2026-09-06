@@ -1,0 +1,129 @@
+<div class="home-container">
+  <div class="content-wrapper">
+
+    <!-- Floating elements (light) -->
+    <div class="floating-elements">
+      <div class="float-icon leaf-icon animate-float-slow">🌱</div>
+      <div class="float-icon wheat-icon animate-float-medium">🌾</div>
+      <div class="float-icon sun-icon animate-float-fast">☀️</div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+
+      <!-- ✅ Claude-style Welcome (same as seller) -->
+      <div class="welcome-hero">
+        <h2 class="welcome-heading">
+          Welcome, <span class="welcome-username" [style.--chars]="username?.length">{{ username }}</span>
+        </h2>
+      </div>
+
+      <h1 class="gradient-title">
+        <span class="title-word animate-pop-in">Agro</span>
+        <span class="title-word highlight animate-slide-in">Link</span>
+      </h1>
+
+      <div class="hero-subtitle-container">
+        <p class="hero-subtitle">
+          <span class="static-text">Your farm. Your data. Your</span>
+          <span class="animated-text-wrapper">
+            <span class="animated-text farmers">growth</span>
+            <span class="animated-text sellers">network</span>
+            <span class="animated-text growers">harvest</span>
+            <span class="animated-text distributors">community</span>
+          </span>
+        </p>
+      </div>
+
+      <p class="hero-description animate-fade-in">
+        Quick actions to manage your crops, check chemicals, and share feedback with trusted sellers.
+      </p>
+
+      <!-- Quick Actions Section -->
+      <section class="cards-section">
+        <div class="section-header">
+          <h2 class="section-title slide-in">Quick Actions</h2>
+          <p class="section-subtitle fade-in">What would you like to do today?</p>
+        </div>
+
+        <!-- ACTION CARDS GRID (UNIFORM) -->
+        <div class="cards-grid actions">
+
+          <!-- 🟩 View Crops -->
+          <div class="action-card">
+            <div class="action-card__image-wrapper">
+              <img src="https://spmrf.org/wp-content/uploads/2020/04/farmer-getty.jpg"
+                   alt="View crops" class="action-card__image" loading="lazy">
+              <div class="action-card__overlay"></div>
+              <div class="action-card__icon">🌾</div>
+            </div>
+
+            <div class="action-card__content">
+              <h2 class="action-card__title">View Crops</h2>
+
+              <div class="action-card__features">
+                <div class="action-card__feature"><span class="feature-icon">📋</span> See crop list and details</div>
+                <div class="action-card__feature"><span class="feature-icon">📈</span> Track stages & performance</div>
+                <div class="action-card__feature"><span class="feature-icon">🌱</span> Get better planning insights</div>
+              </div>
+
+              <a [routerLink]="['/farmer/my-crop']" class="action-card__btn action-card__btn--primary">
+                Go to Crops →
+              </a>
+            </div>
+          </div>
+
+          <!-- 🟧 View Chemicals -->
+          <div class="action-card">
+            <div class="action-card__image-wrapper">
+              <img src="https://stories.bettercotton.org/SFPO/assets/UfsoMcHzSv/2u8a1576-2560x1707.jpeg"
+                   alt="View agrochemicals" class="action-card__image" loading="lazy">
+              <div class="action-card__overlay"></div>
+              <div class="action-card__icon">🧪</div>
+            </div>
+
+            <div class="action-card__content">
+              <h2 class="action-card__title">View Chemicals</h2>
+
+              <div class="action-card__features">
+                <div class="action-card__feature"><span class="feature-icon">🔎</span> Browse approved products</div>
+                <div class="action-card__feature"><span class="feature-icon">✅</span> Check compatibility & safety</div>
+                <div class="action-card__feature"><span class="feature-icon">🤝</span> Connect with verified sellers</div>
+              </div>
+
+              <a [routerLink]="['/farmer/agrochemicals']" class="action-card__btn action-card__btn--primary">
+                Explore Chemicals →
+              </a>
+            </div>
+          </div>
+
+          <!-- 🟦 Give Feedback -->
+          <div class="action-card">
+            <div class="action-card__image-wrapper">
+              <img src="https://www.shutterstock.com/image-photo/happy-village-farmer-greeting-banker-260nw-2287782825.jpg"
+                   alt="Give feedback" class="action-card__image" loading="lazy">
+              <div class="action-card__overlay"></div>
+              <div class="action-card__icon">💬</div>
+            </div>
+
+            <div class="action-card__content">
+              <h2 class="action-card__title">Give Feedback</h2>
+
+              <div class="action-card__features">
+                <div class="action-card__feature"><span class="feature-icon">📝</span> Share your experience</div>
+                <div class="action-card__feature"><span class="feature-icon">⭐</span> Rate products & sellers</div>
+                <div class="action-card__feature"><span class="feature-icon">📣</span> Help improve the marketplace</div>
+              </div>
+
+              <a [routerLink]="['/farmer/add-feedback']" class="action-card__btn action-card__btn--primary">
+                Give Feedback →
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </section>
+
+  </div>
+</div>

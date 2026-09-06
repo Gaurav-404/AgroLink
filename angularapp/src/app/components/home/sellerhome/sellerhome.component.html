@@ -1,0 +1,153 @@
+<div class="home-container">
+
+  <div class="content-wrapper">
+
+    <!-- Floating elements (light) -->
+    <div class="floating-elements">
+      <div class="float-icon seed-icon animate-float-fast">🌿</div>
+      <div class="float-icon tractor-icon animate-float-slow">🚜</div>
+      <div class="float-icon fruit-icon animate-float-medium">🍎</div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+
+      <!-- Claude-style Welcome -->
+      <div class="welcome-hero">
+        <h2 class="welcome-heading">
+          Welcome, <span class="welcome-username" [style.--chars]="username?.length">{{ username }}</span>
+        </h2>
+      </div>
+
+      <h1 class="gradient-title">
+        <span class="title-word animate-pop-in">Agro</span>
+        <span class="title-word highlight animate-slide-in">Link</span>
+      </h1>
+
+      <div class="hero-subtitle-container">
+        <p class="hero-subtitle">
+          <span class="static-text">Grow your business with</span>
+          <span class="animated-text-wrapper">
+            <span class="animated-text sellers">smart inventory</span>
+            <span class="animated-text farmers">faster orders</span>
+            <span class="animated-text growers">real-time insights</span>
+            <span class="animated-text distributors">happy customers</span>
+          </span>
+        </p>
+      </div>
+
+      <p class="hero-description animate-fade-in">
+        Manage chemicals, respond to farmer requests, and track feedback to level up your store.
+      </p>
+
+      <!-- Quick Actions -->
+      <section class="cards-section">
+        <div class="section-header">
+          <h2 class="section-title slide-in">Quick Actions</h2>
+          <p class="section-subtitle fade-in">Get started in a click</p>
+        </div>
+
+        <div class="cards-grid">
+
+          <!-- View Chemicals -->
+          <div class="card card-3d">
+            <div class="card-badge">Popular</div>
+            <div class="card-image-wrapper">
+              <img
+                src="https://5.imimg.com/data5/SELLER/Default/2023/6/314039360/RY/NE/ZH/138440690/agriculture-pesticide-500x500.jpg"
+                alt="Seller chemicals" class="card-image" loading="lazy">
+              <div class="image-overlay"></div>
+              <div class="card-icon">🧪</div>
+            </div>
+            <div class="card-content">
+              <h2>View Chemicals</h2>
+              <div class="feature-list">
+                <div class="feature-item">
+                  <span class="feature-icon">📦</span>
+                  <span>Manage inventory & availability</span>
+                </div>
+                <div class="feature-item">
+                  <span class="feature-icon">✏️</span>
+                  <span>Edit pricing, SKUs & specs</span>
+                </div>
+                <div class="feature-item">
+                  <span class="feature-icon">🔁</span>
+                  <span>Bulk updates & status changes</span>
+                </div>
+              </div>
+              <a [routerLink]="['/seller/view-chemical']" class="btn btn-primary btn-block" aria-label="Go to Seller Chemicals">
+                See Chemicals →
+              </a>
+            </div>
+          </div>
+
+          <!-- View Requests -->
+          <div class="card card-3d">
+            <div class="card-image-wrapper">
+              <img
+                src="https://www.shutterstock.com/image-photo/middle-aged-man-indian-origin-260nw-1629439915.jpg"
+                alt="Farmer requests" class="card-image" loading="lazy">
+              <div class="image-overlay"></div>
+              <div class="card-icon">📨</div>
+            </div>
+            <div class="card-content">
+              <h2>View Requests</h2>
+              <div class="feature-list">
+                <div class="feature-item">
+                  <span class="feature-icon">⚡</span>
+                  <span>Respond instantly to new requests</span>
+                </div>
+                <div class="feature-item">
+                  <span class="feature-icon">⏱️</span>
+                  <span>Track pending & fulfilled orders</span>
+                </div>
+                <div class="feature-item">
+                  <span class="feature-icon">🔔</span>
+                  <span>Get real-time notifications</span>
+                </div>
+              </div>
+              <a [routerLink]="['/seller/requests']" class="btn btn-outline btn-block" aria-label="Go to View Requests">
+                View Requests →
+              </a>
+            </div>
+          </div>
+
+          <!-- View Feedbacks -->
+          <div class="card highlight-card card-3d">
+            <div class="card-image-wrapper">
+              <img
+                src="https://img.freepik.com/premium-photo/young-indian-agronomist-banker-shake-hand-with-farmer-agriculture-field_75648-8311.jpg"
+                alt="Customer feedback" class="card-image" loading="lazy">
+              <div class="image-overlay"></div>
+              <div class="card-icon">⭐</div>
+            </div>
+            <div class="card-content">
+              <h2>View Feedbacks</h2>
+              <div class="feature-list">
+                <div class="feature-item">
+                  <span class="feature-icon">💬</span>
+                  <span>Read farmer reviews & ratings</span>
+                </div>
+                <div class="feature-item">
+                  <span class="feature-icon">📊</span>
+                  <span>Spot trends & improve service</span>
+                </div>
+                <div class="feature-item">
+                  <span class="feature-icon">🎯</span>
+                  <span>Boost trust & conversions</span>
+                </div>
+              </div>
+              <a [routerLink]="['/seller/feedbacks']" class="btn btn-primary btn-block" aria-label="Go to View Feedbacks">
+                See Feedbacks →
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </section>
+
+  </div>
+
+</div>

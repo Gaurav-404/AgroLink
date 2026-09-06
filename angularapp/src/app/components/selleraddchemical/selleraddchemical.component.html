@@ -1,0 +1,149 @@
+<section class="page">
+
+  <div class="form-card mx-auto">
+
+    <!-- Card Header -->
+    <div class="form-card__header">
+      <span class="form-card__icon">🧪</span>
+      <span class="form-card__heading">CREATE NEW AGROCHEMICAL</span>
+    </div>
+
+    <form #f="ngForm" (ngSubmit)="submit(f)" novalidate class="form-card__body">
+
+      <div class="row g-3">
+
+        <!-- Name -->
+        <div class="col-md-6">
+          <div class="field-group" [class.field-group--error]="NameCtrl.touched && NameCtrl.invalid">
+            <label class="field-label">Name <span class="req">*</span></label>
+            <input type="text" class="field-input"
+                   name="Name" [(ngModel)]="agro.Name"
+                   required minlength="2" pattern=".*\S.*" #NameCtrl="ngModel"
+                   placeholder="e.g. Roundup"/>
+            <small class="field-error" *ngIf="NameCtrl.touched && NameCtrl.errors?.['required']">
+              ⚠ Name is required (min 2 chars)
+            </small>
+            <small class="field-error" *ngIf="NameCtrl.touched && NameCtrl.errors?.['pattern']">
+              ⚠ Name cannot be blank or whitespace only
+            </small>
+          </div>
+        </div>
+
+        <!-- Brand -->
+        <div class="col-md-6">
+          <div class="field-group" [class.field-group--error]="BrandCtrl.touched && BrandCtrl.invalid">
+            <label class="field-label">Brand <span class="req">*</span></label>
+            <input type="text" class="field-input"
+                   name="Brand" [(ngModel)]="agro.Brand"
+                   required minlength="2" pattern=".*\S.*" #BrandCtrl="ngModel"
+                   placeholder="e.g. Syngenta"/>
+            <small class="field-error" *ngIf="BrandCtrl.touched && BrandCtrl.errors?.['required']">
+              ⚠ Brand is required (min 2 chars)
+            </small>
+            <small class="field-error" *ngIf="BrandCtrl.touched && BrandCtrl.errors?.['pattern']">
+              ⚠ Brand cannot be blank or whitespace only
+            </small>
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="col-md-6">
+          <div class="field-group" [class.field-group--error]="CategoryCtrl.touched && CategoryCtrl.invalid">
+            <label class="field-label">Category <span class="req">*</span></label>
+            <select class="field-input field-select"
+                    name="Category" [(ngModel)]="agro.Category"
+                    required #CategoryCtrl="ngModel">
+              <option value="" disabled>Select Category</option>
+              <option>Insecticide</option>
+              <option>Fungicide</option>
+              <option>Herbicide</option>
+            </select>
+            <small class="field-error" *ngIf="CategoryCtrl.touched && CategoryCtrl.invalid">
+              ⚠ Category is required
+            </small>
+          </div>
+        </div>
+
+        <!-- Unit -->
+        <div class="col-md-6">
+          <div class="field-group" [class.field-group--error]="UnitCtrl.touched && UnitCtrl.invalid">
+            <label class="field-label">Unit <span class="req">*</span></label>
+            <select class="field-input field-select"
+                    name="Unit" [(ngModel)]="agro.Unit"
+                    required #UnitCtrl="ngModel">
+              <option value="" disabled>Select Unit</option>
+              <option>kg</option>
+              <option>g</option>
+              <option>l</option>
+              <option>ml</option>
+            </select>
+            <small class="field-error" *ngIf="UnitCtrl.touched && UnitCtrl.invalid">
+              ⚠ Unit is required
+            </small>
+          </div>
+        </div>
+
+        <!-- Price Per Unit -->
+        <div class="col-md-6">
+          <div class="field-group" [class.field-group--error]="PriceCtrl.touched && PriceCtrl.invalid">
+            <label class="field-label">Price Per Unit <span class="req">*</span></label>
+            <input type="number" class="field-input"
+                   name="PricePerUnit" step="0.01" min="0.01"
+                   [(ngModel)]="agro.PricePerUnit"
+                   required #PriceCtrl="ngModel"
+                   placeholder="0.00"/>
+            <small class="field-error" *ngIf="PriceCtrl.touched && PriceCtrl.invalid">
+              ⚠ Price Per Unit is required
+            </small>
+          </div>
+        </div>
+
+        <!-- Image -->
+        <div class="col-md-6">
+          <div class="field-group">
+            <label class="field-label">Image <span class="req">*</span></label>
+            <input type="file" class="field-input field-file"
+                   (change)="onFileSelected($event)" />
+            <!-- <input type="text" class="field-input mt-2"
+                   placeholder="Or paste full image URL"
+                   [(ngModel)]="agro.Image" name="Image"/> -->
+            <img *ngIf="imagePreview || agro.Image"
+                 [src]="imagePreview || (agro.Image?.startsWith('http') ? agro.Image : '/assets/' + agro.Image)"
+                 class="img-preview mt-2" alt="preview"/>
+          </div>
+        </div>
+
+        <!-- Description - full width -->
+        <div class="col-12">
+          <div class="field-group" [class.field-group--error]="DescriptionCtrl.touched && DescriptionCtrl.invalid">
+            <label class="field-label">Description <span class="req">*</span></label>
+            <textarea class="field-input field-textarea"
+                      rows="3" name="Description"
+                      [(ngModel)]="agro.Description"
+                      required minlength="5" pattern=".*\S.*"
+                      #DescriptionCtrl="ngModel"
+                      placeholder="Describe the chemical, its usage and effects..."></textarea>
+            <small class="field-error" *ngIf="DescriptionCtrl.touched && DescriptionCtrl.errors?.['required']">
+              ⚠ Description is required (min 5 chars)
+            </small>
+            <small class="field-error" *ngIf="DescriptionCtrl.touched && DescriptionCtrl.errors?.['pattern']">
+              ⚠ Description cannot be blank or whitespace only
+            </small>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex justify-content-end mt-4 gap-3">
+        <button class="btn btn-submit" type="submit" [disabled]="saving">
+          {{ saving ? '⏳ Saving...' : '✅ Submit' }}
+        </button>
+        <button class="btn btn-reset" type="button" (click)="f.resetForm()">
+          🔄 Reset
+        </button>
+      </div>
+
+    </form>
+  </div>
+</section>

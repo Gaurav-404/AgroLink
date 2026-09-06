@@ -1,0 +1,157 @@
+<div class="page-bg">
+  <div class="row justify-content-center m-0">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+
+      <div class="form-card">
+
+        <!-- Header -->
+        <div class="form-card-header">
+          <span class="header-icon">🌽</span>
+          <h5>Edit Crop</h5>
+        </div>
+
+        <div class="form-card-body">
+
+          <!-- Loading -->
+          <div *ngIf="isLoading"
+               class="alert alert-info d-flex align-items-center gap-2 py-2 px-3"
+               role="alert">
+            <span class="spinner-border spinner-border-sm flex-shrink-0" role="status"></span>
+            <span>Loading crop details…</span>
+          </div>
+
+          <!-- Error -->
+          <div *ngIf="error"
+               class="alert alert-danger d-flex align-items-center gap-2 py-2 px-3"
+               role="alert">
+            <i class="bi bi-exclamation-circle-fill flex-shrink-0"></i>
+            <span>{{ error }}</span>
+          </div>
+
+          <!-- Form -->
+          <form
+            *ngIf="!isLoading && loaded"
+            #cropForm="ngForm"
+            (ngSubmit)="onSubmit(cropForm)"
+            novalidate
+          >
+
+            <!-- Dynamic fields — full width, single column -->
+            <div class="mb-4">
+              <div class="field-row" *ngFor="let key of fieldKeys">
+                <label [for]="key" class="field-label">{{ friendlyLabel(key) }}</label>
+
+                <!-- Boolean → toggle switch -->
+                <ng-container *ngIf="isBooleanControl(key); else checkCropType">
+                  <div class="form-check form-switch mt-1 mb-3">
+                    <input
+                      type="checkbox"
+                      class="form-check-input custom-switch"
+                      role="switch"
+                      [id]="key"
+                      [name]="key"
+                      [(ngModel)]="formModel[key]"
+                      [disabled]="idKeyDetected === key"
+                    />
+                    <label class="form-check-label switch-label" [for]="key">
+                      {{ formModel[key] ? 'Yes' : 'No' }}
+                    </label>
+                  </div>
+                </ng-container>
+
+                <!-- CropType → dropdown -->
+                <ng-template #checkCropType>
+                  <ng-container *ngIf="isCropTypeControl(key); else checkPlantingDate">
+                    <select
+                      class="form-select custom-input mb-1"
+                      [id]="key"
+                      [name]="key"
+                      [(ngModel)]="formModel[key]"
+                      required
+                      #cropTypeField="ngModel"
+                    >
+                      <option value="" disabled>Select crop season</option>
+                      <option *ngFor="let option of cropTypeOptions" [value]="option">{{ option }}</option>
+                    </select>
+                    <div
+                      *ngIf="cropTypeField.invalid && (cropTypeField.dirty || cropTypeField.touched)"
+                      class="text-danger small mb-3"
+                    >
+                      <span *ngIf="cropTypeField.errors?.['required']">Please select a crop type.</span>
+                    </div>
+                    <div *ngIf="!(cropTypeField.invalid && (cropTypeField.dirty || cropTypeField.touched))" class="mb-3"></div>
+                  </ng-container>
+                </ng-template>
+
+                <!-- PlantingDate → datetime-local -->
+                <ng-template #checkPlantingDate>
+                  <ng-container *ngIf="isPlantingDateControl(key); else nonBoolean">
+                    <input
+                      type="datetime-local"
+                      class="form-control custom-input mb-1"
+                      [id]="key"
+                      [name]="key"
+                      [(ngModel)]="formModel[key]"
+                      required
+                      #plantingDateField="ngModel"
+                    />
+                    <div
+                      *ngIf="plantingDateField.invalid && (plantingDateField.dirty || plantingDateField.touched)"
+                      class="text-danger small mb-3"
+                    >
+                      <span *ngIf="plantingDateField.errors?.['required']">Please select a planting date and time.</span>
+                    </div>
+                    <div *ngIf="!(plantingDateField.invalid && (plantingDateField.dirty || plantingDateField.touched))" class="mb-3"></div>
+                  </ng-container>
+                </ng-template>
+
+                <!-- Text / Number -->
+                <ng-template #nonBoolean>
+                  <input
+                    [type]="inputTypeFor(key)"
+                    class="form-control custom-input mb-1"
+                    [class.readonly-input]="idKeyDetected === key"
+                    [id]="key"
+                    [name]="key"
+                    [(ngModel)]="formModel[key]"
+                    [readonly]="idKeyDetected === key"
+                    [required]="idKeyDetected !== key"
+                    [pattern]="idKeyDetected !== key && inputTypeFor(key) === 'text' ? '.*\\S.*' : null"
+                    #fieldInput="ngModel"
+                  />
+                  <div
+                    *ngIf="fieldInput.invalid && (fieldInput.dirty || fieldInput.touched) && idKeyDetected !== key"
+                    class="text-danger small mb-3"
+                  >
+                    <span *ngIf="fieldInput.errors?.['required']">This field is required.</span>
+                    <span *ngIf="fieldInput.errors?.['pattern']">Cannot have white space only input.</span>
+                  </div>
+                  <div *ngIf="!(fieldInput.invalid && (fieldInput.dirty || fieldInput.touched))" class="mb-3"></div>
+                </ng-template>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="d-flex justify-content-end gap-2 pt-3 form-footer">
+              <button
+                type="button"
+                class="btn btn-cancel"
+                (click)="onCancel()"
+                [disabled]="isLoading">
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="btn btn-submit"
+                [disabled]="isLoading || cropForm.invalid">
+                ✅ Save Changes
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

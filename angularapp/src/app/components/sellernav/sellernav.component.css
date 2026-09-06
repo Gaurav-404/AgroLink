@@ -1,0 +1,167 @@
+/* Container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 28px;   /* unchanged */
+  margin: 10px auto;    /* unchanged */
+  width: 96%;           /* unchanged */
+  height: 60px;         /* unchanged */
+
+  background: #ffffff;
+  box-shadow: none;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* Brand */
+.navbar-brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.main-title {
+  font-size: 28px;  /* was 24px -> bigger */
+  font-weight: 900;
+  color: #1b5e20;
+  line-height: 1;   /* keep tight to not increase bar height */
+}
+
+.sub-title {
+  font-size: 13px;  /* was 11px -> bigger */
+  color: #f9a825;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1;   /* tight */
+}
+
+/* Links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-links li {
+  list-style: none;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1b5e20;
+  font-weight: 700;
+  font-size: 18px;         /* was 16px -> bigger */
+  padding: 6px 10px;       /* keep same so navbar height stays the same */
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                /* slightly larger gap for bigger text */
+
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #593700;
+  background: #f8f9fa;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* Dropdown */
+.dropdown { position: relative; }
+
+.drop-trigger {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                /* a touch larger for bigger text */
+  line-height: 1;
+  padding: 6px 10px;       /* unchanged so navbar height remains */
+  border-radius: 8px;
+  font-size: 18px;         /* match link size */
+}
+
+.caret {
+  font-size: 14px;         /* was 12px -> bigger */
+  opacity: 0.8;
+  margin-left: 4px;
+  transition: transform 0.2s ease;
+}
+
+/* Rotate caret when menu is open */
+.dropdown-menu.open ~ .caret { transform: rotate(180deg); }
+
+/* Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+
+  min-width: 220px;        /* slightly wider for larger text */
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px 0;
+  margin: 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+
+  overflow: hidden;
+  box-sizing: border-box;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(5px);
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+  z-index: 1000;
+}
+
+.dropdown-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Dropdown items */
+.dropdown-menu li a {
+  width: 100%;
+  display: block;
+  padding: 12px 18px;      /* a bit more comfortable with bigger text */
+  font-size: 16px;         /* was 14px -> bigger */
+  color: #1b5e20;
+  border-radius: 0;
+  white-space: nowrap;
+  transition: background 0.18s ease, padding-left 0.18s ease;
+}
+
+.dropdown-menu li a:hover,
+.dropdown-menu li a.active {
+  color: #781111;
+  background: #f8f9fa;
+  padding-left: 22px;
+}
+
+/* Responsive (optional; only scaling text, not bar height) */
+@media (max-width: 768px) {
+  .navbar { padding: 10px 16px; }  /* unchanged height */
+
+  .nav-links { gap: 14px; }
+  .main-title { font-size: 24px; } /* still larger than before on mobile */
+  .sub-title { font-size: 12px; }
+  .nav-links a, .drop-trigger { font-size: 17px; }
+  .caret { font-size: 14px; }
+}

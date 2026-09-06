@@ -1,0 +1,222 @@
+/* ── Google Fonts: Inter + Lora ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@600;700&display=swap');
+
+/* ══════════════════════════════════════════
+   PAGE
+══════════════════════════════════════════ */
+.page-bg {
+  min-height: 100vh;
+  background-color: #e8f5e9;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2.5rem 1rem 2rem;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.page-bg .row {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* ══════════════════════════════════════════
+   CARD
+══════════════════════════════════════════ */
+.form-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.04),
+    0 12px 40px rgba(0,0,0,0.10),
+    0 0 0 1px rgba(0,0,0,0.03);
+  overflow: hidden;
+  width: 100%;
+}
+
+/* ══════════════════════════════════════════
+   CARD HEADER — Lora, bold, ALL CAPS
+══════════════════════════════════════════ */
+.form-card-header {
+  background: #1a5c36;
+  background-image: linear-gradient(135deg, #1e6b3e 0%, #145030 100%);
+  padding: 1.4rem 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 3px solid #0f3d22;
+}
+
+.header-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+
+.form-card-header h5 {
+  margin: 0;
+  color: #ffffff;
+  font-family: 'Lora', 'Georgia', serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+}
+
+/* ══════════════════════════════════════════
+   CARD BODY
+══════════════════════════════════════════ */
+.form-card-body {
+  padding: 1.75rem 2rem 1.75rem;
+}
+
+/* ══════════════════════════════════════════
+   FIELD ROW — full-width stacked
+══════════════════════════════════════════ */
+.field-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ══════════════════════════════════════════
+   FIELD LABELS — Lora serif, bold, caps
+══════════════════════════════════════════ */
+.field-label {
+  display: block;
+  font-family: 'Lora', 'Georgia', serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1f2937;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.45rem;
+}
+
+/* ══════════════════════════════════════════
+   INPUTS — full width, clean alignment
+══════════════════════════════════════════ */
+.custom-input {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.97rem;
+  color: #111827;
+  background: #fafafa;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+  line-height: 1.5;
+  box-sizing: border-box;
+  display: block;
+}
+
+.custom-input::placeholder {
+  color: #a1aab4;
+  font-size: 0.93rem;
+}
+
+.custom-input:focus {
+  background: #ffffff;
+  border-color: #1a5c36;
+  box-shadow: 0 0 0 3.5px rgba(26, 92, 54, 0.14);
+  outline: none;
+}
+
+/* readonly */
+.readonly-input {
+  background-color: #f3f4f6 !important;
+  color: #6b7280 !important;
+  cursor: not-allowed;
+  border-color: #e5e7eb !important;
+}
+.readonly-input:focus {
+  box-shadow: none !important;
+  border-color: #e5e7eb !important;
+}
+
+/* ══════════════════════════════════════════
+   TOGGLE SWITCH
+══════════════════════════════════════════ */
+.custom-switch {
+  width: 42px;
+  height: 24px;
+  cursor: pointer;
+}
+.custom-switch:checked {
+  background-color: #1a5c36;
+  border-color: #1a5c36;
+}
+.switch-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #374151;
+  margin-left: 6px;
+}
+
+/* ══════════════════════════════════════════
+   SPACING
+══════════════════════════════════════════ */
+.mb-3 { margin-bottom: 1.2rem !important; }
+.mb-4 { margin-bottom: 0 !important; }
+
+/* ══════════════════════════════════════════
+   FORM FOOTER
+══════════════════════════════════════════ */
+.form-footer {
+  border-top: 1.5px solid #f0f0f0;
+  padding-top: 1.25rem !important;
+  margin-top: 1.5rem;
+}
+
+/* ══════════════════════════════════════════
+   BUTTONS
+══════════════════════════════════════════ */
+.btn-cancel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #4b5563;
+  background: #f9fafb;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  padding: 0.6rem 1.6rem;
+  transition: background 0.15s, border-color 0.15s;
+  cursor: pointer;
+}
+.btn-cancel:hover:not(:disabled) {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  color: #111827;
+}
+.btn-cancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-submit {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.93rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: #1a5c36;
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 2rem;
+  letter-spacing: 0.015em;
+  transition: background 0.16s, box-shadow 0.16s, transform 0.1s;
+  cursor: pointer;
+}
+.btn-submit:hover:not(:disabled) {
+  background: #145030;
+  box-shadow: 0 5px 16px rgba(26, 92, 54, 0.35);
+  transform: translateY(-1px);
+}
+.btn-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+.btn-submit:disabled {
+  background: #7aab8f;
+  cursor: not-allowed;
+  transform: none;
+}

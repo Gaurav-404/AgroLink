@@ -1,0 +1,301 @@
+<div class="register-page">
+
+  <div class="bg-layer">
+    <div class="bg-image"></div>
+    <div class="bg-overlay"></div>
+    <div class="floating-leaves">
+      <span class="leaf leaf-1">🌿</span>
+      <span class="leaf leaf-2">🍃</span>
+      <span class="leaf leaf-3">🌱</span>
+      <span class="leaf leaf-4">🍃</span>
+      <span class="leaf leaf-5">🌿</span>
+      <span class="leaf leaf-6">🌱</span>
+    </div>
+    <div class="particles">
+      <span class="particle"></span><span class="particle"></span>
+      <span class="particle"></span><span class="particle"></span>
+      <span class="particle"></span><span class="particle"></span>
+      <span class="particle"></span><span class="particle"></span>
+    </div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+    <div class="wheat-decoration">
+      <span class="wheat wheat-1">🌾</span>
+      <span class="wheat wheat-2">🌾</span>
+      <span class="wheat wheat-3">🌾</span>
+    </div>
+  </div>
+
+  <div class="register-card">
+    <div class="corner-accent corner-tl"></div>
+    <div class="corner-accent corner-tr"></div>
+    <div class="corner-accent corner-bl"></div>
+    <div class="corner-accent corner-br"></div>
+
+   
+
+    <div class="card-badge pulse-badge">
+      <span class="badge-dot"></span>
+      <span class="badge-text">Join the AgroLink Network</span>
+      <span class="badge-shine"></span>
+    </div>
+
+    <div class="brand">
+      <div class="brand-icon-wrapper">
+        <div class="brand-icon">🌾</div>
+        <div class="brand-icon-glow"></div>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">AgroLink</span>
+        <span class="brand-sub">FARMER'S HUB</span>
+      </div>
+    </div>
+
+    <div class="divider">
+      <span class="divider-line"></span>
+      <span class="divider-icon rotating">✦</span>
+      <span class="divider-line"></span>
+    </div>
+
+    <h2 class="card-title">Create Account</h2>
+    <p class="card-subtitle">Start connecting with farmers &amp; sellers today</p>
+
+    <form #f="ngForm" (ngSubmit)="register()" class="register-form" novalidate>
+
+      <!-- ───── Username ───── -->
+      <div class="form-group">
+        <div class="input-wrapper">
+          <span class="input-icon floating-icon">👤</span>
+          <input
+            type="text"
+            name="Username"
+            [(ngModel)]="newUser.Username"
+            required
+            placeholder="Username"
+            class="form-input"
+            (input)="onUsernameInput()" />
+          <span class="input-focus-bar"></span>
+          <span class="input-border-animation"></span>
+        </div>
+        <div *ngIf="(submitted || usernameTouched) && !newUser.Username?.trim()" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Username is required</span>
+        </div>
+        <div *ngIf="(submitted || usernameTouched) && newUser.Username && newUser.Username.includes(' ')" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Username must not contain spaces</span>
+        </div>
+      </div>
+
+      <!-- ───── Email ───── -->
+      <div class="form-group">
+        <div class="input-wrapper">
+          <span class="input-icon floating-icon">📧</span>
+          <input
+            type="email"
+            name="Email"
+            [(ngModel)]="newUser.Email"
+            required
+            placeholder="Email address"
+            class="form-input"
+            (input)="onEmailInput()" />
+          <span class="input-focus-bar"></span>
+          <span class="input-border-animation"></span>
+        </div>
+        <div *ngIf="(submitted || emailTouched) && !newUser.Email?.trim()" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Email is required</span>
+        </div>
+        <div *ngIf="(submitted || emailTouched) && newUser.Email && newUser.Email.includes(' ')" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Email must not contain spaces</span>
+        </div>
+        <div *ngIf="(submitted || emailTouched) && newUser.Email && !newUser.Email.includes(' ') && !isEmailValid" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Please enter a valid email address</span>
+        </div>
+      </div>
+
+      <!-- ───── Mobile Number ───── -->
+      <div class="form-group">
+        <div class="input-wrapper">
+          <span class="input-icon floating-icon">📱</span>
+          <input
+            type="tel"
+            name="MobileNumber"
+            [(ngModel)]="newUser.MobileNumber"
+            required
+            placeholder="Mobile Number"
+            class="form-input"
+            (input)="onMobileInput()" />
+          <span class="input-focus-bar"></span>
+          <span class="input-border-animation"></span>
+        </div>
+        <div *ngIf="(submitted || mobileTouched) && !newUser.MobileNumber?.trim()" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Mobile number is required</span>
+        </div>
+        <div *ngIf="(submitted || mobileTouched) && newUser.MobileNumber && newUser.MobileNumber.includes(' ')" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Mobile number must not contain spaces</span>
+        </div>
+        <div *ngIf="(submitted || mobileTouched) && newUser.MobileNumber && !newUser.MobileNumber.includes(' ') && !isMobileValid" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Mobile number must be at least 10 digits</span>
+        </div>
+      </div>
+
+      <!-- ───── Password ───── -->
+      <div class="form-group">
+        <div class="input-wrapper"
+          [class.input-error]="(submitted || passwordTouched) && newUser.Password && !isPasswordValid"
+          [class.input-success]="passwordTouched && isPasswordValid">
+          <span class="input-icon floating-icon">🔐</span>
+          <input
+            type="password"
+            name="Password"
+            [(ngModel)]="newUser.Password"
+            required
+            placeholder="Password"
+            class="form-input"
+            (input)="onPasswordInput()" />
+          <span class="input-focus-bar"></span>
+          <span class="input-border-animation"></span>
+        </div>
+
+        <!-- Strength bar -->
+        <div class="password-strength" *ngIf="newUser.Password">
+          <div class="strength-bar">
+            <div class="strength-fill"
+              [class.weak]="passwordStrength === 'weak'"
+              [class.medium]="passwordStrength === 'medium'"
+              [class.strong]="passwordStrength === 'strong'"
+              [style.width.%]="strengthPercentage"></div>
+          </div>
+          <span class="strength-text"
+            [class.weak-text]="passwordStrength === 'weak'"
+            [class.medium-text]="passwordStrength === 'medium'"
+            [class.strong-text]="passwordStrength === 'strong'">
+            {{ passwordStrengthText }}
+          </span>
+        </div>
+
+        <!-- Live rule checklist -->
+        <div class="password-rules" *ngIf="newUser.Password">
+          <div class="rule" [class.rule-pass]="hasMinLength" [class.rule-fail]="!hasMinLength">
+            <span>{{ hasMinLength ? '✅' : '❌' }}</span> At least 8 characters
+          </div>
+          <div class="rule" [class.rule-pass]="hasUpperCase" [class.rule-fail]="!hasUpperCase">
+            <span>{{ hasUpperCase ? '✅' : '❌' }}</span> One uppercase letter (A–Z)
+          </div>
+          <div class="rule" [class.rule-pass]="hasLowerCase" [class.rule-fail]="!hasLowerCase">
+            <span>{{ hasLowerCase ? '✅' : '❌' }}</span> One lowercase letter (a–z)
+          </div>
+          <div class="rule" [class.rule-pass]="hasNumber" [class.rule-fail]="!hasNumber">
+            <span>{{ hasNumber ? '✅' : '❌' }}</span> One number (0–9)
+          </div>
+          <div class="rule" [class.rule-pass]="hasSpecialChar" [class.rule-fail]="!hasSpecialChar">
+            <span>{{ hasSpecialChar ? '✅' : '❌' }}</span> One special character (!&#64;#$…)
+          </div>
+          <div class="rule" [class.rule-pass]="hasNoSpaces" [class.rule-fail]="!hasNoSpaces">
+            <span>{{ hasNoSpaces ? '✅' : '❌' }}</span> No spaces allowed
+          </div>
+        </div>
+
+        <!-- Submit-time errors -->
+        <div *ngIf="(submitted || passwordTouched) && !newUser.Password" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Password is required</span>
+        </div>
+        <div *ngIf="(submitted || passwordTouched) && newUser.Password && !hasNoSpaces" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Password must not contain spaces</span>
+        </div>
+        <div *ngIf="(submitted || passwordTouched) && newUser.Password && hasNoSpaces && !hasMinLength" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Password must be at least 8 characters</span>
+        </div>
+        <div *ngIf="(submitted || passwordTouched) && newUser.Password && hasNoSpaces && hasMinLength && !hasUpperCase" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Must contain at least one uppercase letter</span>
+        </div>
+        <div *ngIf="(submitted || passwordTouched) && newUser.Password && hasNoSpaces && hasMinLength && hasUpperCase && !hasLowerCase" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Must contain at least one lowercase letter</span>
+        </div>
+        <div *ngIf="(submitted || passwordTouched) && newUser.Password && hasNoSpaces && hasMinLength && hasUpperCase && hasLowerCase && !hasNumber" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Must contain at least one number</span>
+        </div>
+        <div *ngIf="(submitted || passwordTouched) && newUser.Password && hasNoSpaces && hasMinLength && hasUpperCase && hasLowerCase && hasNumber && !hasSpecialChar" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Must contain at least one special character</span>
+        </div>
+      </div>
+
+      <!-- ───── Confirm Password ───── -->
+      <div class="form-group">
+        <div class="input-wrapper"
+          [class.input-error]="(submitted || confirmTouched) && confirmPassword && confirmPassword !== newUser.Password"
+          [class.input-success]="confirmTouched && confirmPassword && confirmPassword === newUser.Password">
+          <span class="input-icon floating-icon">🔑</span>
+          <input
+            type="password"
+            name="ConfirmPassword"
+            [(ngModel)]="confirmPassword"
+            required
+            placeholder="Confirm Password"
+            class="form-input"
+            (input)="onConfirmInput()" />
+          <span class="input-focus-bar"></span>
+          <span class="input-border-animation"></span>
+          <span class="password-match-icon" *ngIf="confirmPassword && newUser.Password">
+            <span *ngIf="confirmPassword === newUser.Password" class="match-success">✓</span>
+            <span *ngIf="confirmPassword !== newUser.Password" class="match-error">✗</span>
+          </span>
+        </div>
+        <div *ngIf="(submitted || confirmTouched) && !confirmPassword" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Please confirm your password</span>
+        </div>
+        <div *ngIf="(submitted || confirmTouched) && confirmPassword && confirmPassword !== newUser.Password" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Passwords do not match</span>
+        </div>
+      </div>
+
+      <!-- ───── Role ───── -->
+      <div class="form-group">
+        <div class="input-wrapper select-wrapper">
+          <span class="input-icon floating-icon">🏷️</span>
+          <select
+            name="UserRole"
+            [(ngModel)]="newUser.UserRole"
+            required
+            class="form-input form-select">
+            <option value="" disabled>Select Your Role</option>
+            <option value="Farmer">👨‍🌾 Farmer</option>
+            <option value="Seller">📦 Seller</option>
+          </select>
+          <span class="select-arrow">▾</span>
+          <span class="input-focus-bar"></span>
+        </div>
+        <div *ngIf="submitted && !newUser.UserRole" class="error-msg slide-down">
+          <span class="error-icon">⚠️</span><span>Role is required</span>
+        </div>
+      </div>
+
+
+      <!-- ───── Submit ───── -->
+      <button type="submit" class="btn-register">
+        <span class="btn-icon">🌱</span>
+        <span class="btn-text">Create Account</span>
+        <span class="btn-arrow">→</span>
+        <span class="btn-shine"></span>
+        <span class="btn-overlay"></span>
+      </button>
+
+    </form>
+
+    <p class="register-footer">
+      <span class="footer-text">Already have an account?</span>
+      <a routerLink="/login" class="login-link">
+        Sign in <span class="link-arrow">→</span>
+      </a>
+    </p>
+
+    <div class="trust-badges">
+      <span class="trust-badge"><span class="badge-emoji">🔒</span>256-bit SSL</span>
+      <span class="trust-badge"><span class="badge-emoji">🛡️</span>Data Protected</span>
+      <span class="trust-badge"><span class="badge-emoji">🌿</span>Eco-Friendly</span>
+    </div>
+
+    <div class="card-bottom-strip"></div>
+  </div>
+
+</div>

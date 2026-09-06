@@ -1,0 +1,160 @@
+<section class="page">
+  <h2 class="title">AgroChemicals</h2>
+  <div class="rule"></div>
+
+  <div class="alert alert-success rounded-3 mb-3" *ngIf="successMsg">{{ successMsg }}</div>
+  <div class="alert alert-danger  rounded-3 mb-3" *ngIf="errorMsg">{{ errorMsg }}</div>
+
+  <!-- Toolbar -->
+  <div class="toolbar-row">
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input class="search-input"
+             type="text"
+             [(ngModel)]="searchText"
+             (ngModelChange)="applyFilter($event)"
+             name="searchText"
+             placeholder="Search chemicals..."/>
+    </div>
+
+    <div class="toolbar-right">
+      <!-- View Toggle -->
+      <div class="view-toggle">
+        <button class="toggle-btn" [class.active]="viewMode === 'card'" (click)="viewMode = 'card'" title="Card View">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="3" y="3" width="8" height="8" rx="1.5"/>
+            <rect x="13" y="3" width="8" height="8" rx="1.5"/>
+            <rect x="3" y="13" width="8" height="8" rx="1.5"/>
+            <rect x="13" y="13" width="8" height="8" rx="1.5"/>
+          </svg>
+          Cards
+        </button>
+        <button class="toggle-btn" [class.active]="viewMode === 'table'" (click)="viewMode = 'table'" title="Table View">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+          Table
+        </button>
+      </div>
+
+      <a routerLink="/seller/add-chemical" class="btn btn-add">+ Add Chemical</a>
+    </div>
+  </div>
+
+  <div class="text-muted py-2" *ngIf="loading">Loading…</div>
+
+  <!-- ══ CARD VIEW ══ -->
+  <div class="card-grid" *ngIf="!loading && filtered.length && viewMode === 'card'">
+    <div class="chem-card" *ngFor="let c of filtered">
+      <div class="chem-card-img-wrap">
+        <img [src]="getImageUrl(c.Image ?? c.image)" [alt]="c.name" class="chem-card-img" />
+        <span class="cat-badge-seller card-badge-pos">{{ c.category }}</span>
+      </div>
+      <div class="chem-card-body">
+        <h5 class="chem-card-name">{{ c.name }}</h5>
+        <p class="chem-card-brand">{{ c.brand }}</p>
+        <p class="chem-card-desc">{{ c.description }}</p>
+        <div class="chem-card-meta">
+          <span class="chem-card-unit">{{ c.unit }}</span>
+          <span class="chem-card-price">{{ c.pricePerUnit | currency:'INR' }}</span>
+        </div>
+      </div>
+      <div class="chem-card-footer">
+        <button class="btn btn-sm btn-edit" (click)="edit(c)">✏️ Edit</button>
+        <button class="btn btn-sm btn-info-custom" (click)="openImage(c)">🖼️ Image</button>
+        <button class="btn btn-sm btn-danger-custom"
+                (click)="confirmDelete(c)"
+                [disabled]="deletingId === c.AgroChemicalId">
+          {{ deletingId === c.AgroChemicalId ? '⏳' : '🗑️' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TABLE VIEW ══ -->
+  <div class="table-card" *ngIf="!loading && filtered.length && viewMode === 'table'">
+    <table class="table tbl mb-0">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Name</th>
+          <th>Brand</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Unit</th>
+          <th>Price Per Unit</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of filtered; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ c.name }}</td>
+          <td>{{ c.brand }}</td>
+          <td>{{ c.category }}</td>
+          <td class="td-desc">{{ c.description }}</td>
+          <td>{{ c.unit }}</td>
+          <td>{{ c.pricePerUnit | currency:'INR' }}</td>
+          <td>
+            <div class="d-flex gap-1 flex-nowrap align-items-center">
+              <button class="btn btn-sm btn-edit" (click)="edit(c)">✏️ Edit</button>
+              <button class="btn btn-sm btn-danger-custom"
+                      (click)="confirmDelete(c)"
+                      [disabled]="deletingId === c.AgroChemicalId">
+                {{ deletingId === c.AgroChemicalId ? '⏳' : '🗑️ Delete' }}
+              </button>
+              <button class="btn btn-sm btn-info-custom" (click)="openImage(c)">🖼️ Image</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-muted mt-3" *ngIf="!loading && !filtered.length">
+    No agrochemicals yet.
+  </div>
+
+  <!-- Image Modal -->
+  <div class="modal-overlay" *ngIf="imageOpen" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-hdr d-flex justify-content-between align-items-center">
+        <h6 class="mb-0 fw-bold" style="color:#fff">Cover Image</h6>
+        <button class="btn-icon" (click)="closeImage()" aria-label="Close"
+                style="background:transparent;border:none;color:#fff;font-size:1.1rem;cursor:pointer;line-height:1;">✕</button>
+      </div>
+      <div class="p-3">
+        <img [src]="selectedChemical?.ImagePreview"
+             [alt]="selectedChemical?.Name"
+             class="img-fluid rounded"/>
+      </div>
+      <div class="modal-ftr d-flex justify-content-end">
+        <button class="btn btn-add px-3 py-1" (click)="closeImage()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-overlay" *ngIf="confirmOpen" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-hdr">
+        <span class="modal-icon">🗑️</span>
+        <h6 class="modal-title">Confirm Delete</h6>
+      </div>
+      <div class="modal-body-content">
+        <p class="modal-msg">Are you sure you want to delete</p>
+        <p class="modal-chemical-name">{{ selectedChemical?.name }}</p>
+        <p class="modal-warning">⚠ This action cannot be undone.</p>
+      </div>
+      <div class="modal-ftr d-flex justify-content-end gap-3">
+        <button class="modal-btn modal-btn--cancel" (click)="cancelDelete()">Cancel</button>
+        <button class="modal-btn modal-btn--delete" (click)="doDelete()">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Add to component class: viewMode: 'card' | 'table' = 'card'; -->

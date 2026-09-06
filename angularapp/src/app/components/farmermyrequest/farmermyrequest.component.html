@@ -1,0 +1,98 @@
+<div class="page-bg">
+
+  <!-- Page Header -->
+  <div class="page-header d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+    <h4 class="page-title">
+      <span class="title-icon">📋</span> My Requests
+    </h4>
+    <div class="d-flex align-items-center gap-2">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search requests…"
+          [(ngModel)]="q"
+        />
+      </div>
+      <button class="btn btn-refresh" (click)="refresh()">↻ Refresh</button>
+    </div>
+  </div>
+
+  <!-- States -->
+  <div *ngIf="loading"
+       class="alert alert-info d-flex align-items-center gap-2 py-2">
+    <span class="spinner-border spinner-border-sm flex-shrink-0"></span>
+    <span>Loading requests…</span>
+  </div>
+
+  <div *ngIf="errorMsg"
+       class="alert alert-danger d-flex align-items-center gap-2 py-2">
+    <span>⚠️ {{ errorMsg }}</span>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card" *ngIf="!loading && !errorMsg">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0 request-table">
+        <thead>
+          <tr>
+            <th>S. no</th>
+            <th>AgroChemical Name</th>
+            <th>Brand</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Submission Date</th>
+            <th>Crop Name</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of requests; let i = index">
+            <td class="row-num">{{ i + 1 }}</td>
+            <td class="fw-medium">{{ r?.AgroChemical?.name || 'N/A' }}</td>
+            <td>{{ r?.AgroChemical?.brand || 'N/A' }}</td>
+            <td>{{ r?.AgroChemical?.category || 'N/A' }}</td>
+            <td>{{ r.quantity }}</td>
+            <td class="date-cell">{{ fmt(r.requestDate) }}</td>
+            <td>{{ r?.Crop?.cropName || 'N/A' }}</td>
+            <td>
+              <span [class]="statusClass(r.Status)" class="status-badge">
+                {{ r.Status }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-del btn-sm" (click)="askDelete(r.RequestId)">
+                🗑 Delete
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="filtered().length === 0">
+            <td colspan="9" class="empty-row">
+              <span>📭</span> No requests found.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal-backdrop-custom" *ngIf="confirmDeleteId !== null">
+    <div class="modal-box">
+      <div class="modal-box-header">
+        <h6 class="modal-box-title">⚠️ Delete Request</h6>
+        <button class="btn-close" (click)="cancelDelete()"></button>
+      </div>
+      <div class="modal-box-body">
+        <p class="modal-text">Are you sure you want to permanently delete this request?</p>
+      </div>
+      <div class="modal-box-footer">
+        <button class="btn btn-modal-cancel" (click)="cancelDelete()">Cancel</button>
+        <button class="btn btn-modal-danger" (click)="confirmDelete()">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
+
+</div>

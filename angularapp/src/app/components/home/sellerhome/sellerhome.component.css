@@ -1,0 +1,71 @@
+/* Small role-specific accents for Seller. The base theme comes from home.component.css */
+
+:host ::ng-deep .hero-badge,
+:host ::ng-deep .carousel-tag {
+  background: linear-gradient(135deg, #ffb300, #ff8f00);
+}
+
+:host ::ng-deep .card.highlight-card {
+  border-color: #ffb300;
+}
+
+:host ::ng-deep .card .card-icon {
+  animation-duration: 2s;
+}
+
+/* ── Claude-style Welcome ── */
+.welcome-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  animation: welcomeFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.welcome-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #3b2f2f;
+  margin: 0;
+  letter-spacing: -0.5px;
+  animation: welcomeFadeUp 0.8s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  white-space: nowrap;
+}
+
+.welcome-username {
+  color: #1b5e20;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0ch;
+  border-right: 3px solid transparent;
+  vertical-align: bottom;
+  animation: cssTyping 1.4s steps(var(--chars, 12), end) 0.5s forwards;
+}
+
+@keyframes cssTyping {
+  from { max-width: 0ch; }
+  to   { max-width: calc(var(--chars, 12) * 1ch); }
+}
+
+@keyframes welcomeFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes starSpin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes starPulse {
+  0%, 100% { opacity: 1;   transform: rotate(0deg)   scale(1);    }
+  50%       { opacity: 0.7; transform: rotate(180deg) scale(1.15); }
+}

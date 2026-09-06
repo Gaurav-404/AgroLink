@@ -1,0 +1,34 @@
+<div class="feedback-page">
+  <div class="feedback-card">
+
+    <!-- Header -->
+    <div class="feedback-header">
+      <span class="header-icon">💬</span>
+      <h5>Add Feedback</h5>
+    </div>
+
+    <div class="feedback-body">
+
+      <label class="field-label">Your Feedback</label>
+      <textarea
+        class="feedback-textarea"
+        [(ngModel)]="feedback.FeedbackText"
+        name="feedbackText"
+        rows="5"
+        placeholder="Share your thoughts, suggestions, or concerns here…"
+        maxlength="500">
+      </textarea>
+      <div class="char-hint">{{ feedback.FeedbackText?.length || 0 }} / 500</div>
+
+      <hr class="form-divider"/>
+
+      <button
+        class="btn-submit-feedback"
+        [disabled]="!feedback.FeedbackText || feedback.FeedbackText.trim() === ''"
+        (click)="AddFeedback()">
+        📨 Submit Feedback
+      </button>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+<section class="page">
+  <h2 class="title">Chemical Requests for Approval</h2>
+  <div class="rule"></div>
+
+  <div class="alert alert-danger rounded-3 mb-3" *ngIf="errorMsg">{{ errorMsg }}</div>
+
+  <!-- Toolbar -->
+  <div class="toolbar-row">
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" placeholder="Search requests..." [(ngModel)]="q"/>
+    </div>
+    <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:nowrap; flex-shrink:0;">
+      <label class="filter-label" style="white-space:nowrap;">Status</label>
+      <select class="filter-select" [(ngModel)]="statusFilter">
+        <option>All</option>
+        <option>Pending</option>
+        <option>Approved</option>
+        <option>Rejected</option>
+      </select>
+      <button class="refresh-btn" (click)="refresh()" [disabled]="loading">
+        🔄 Refresh
+      </button>
+    </div>
+  </div>
+
+  <div class="text-muted py-2" *ngIf="loading">Loading...</div>
+
+  <!-- Table -->
+  <div class="table-card" *ngIf="!loading && !errorMsg && filtered().length > 0">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Username</th>
+          <th>Chemical Name</th>
+          <th>Brand</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Crop Name</th>
+          <th>Request Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of filtered(); let i = index; trackBy: trackByRequestId">
+          <td>{{ i + 1 }}</td>
+          <td>{{ r?.User?.Username || 'N/A' }}</td>
+          <td>{{ r?.AgroChemical?.Name || 'N/A' }}</td>
+          <td>{{ r?.AgroChemical?.Brand || 'N/A' }}</td>
+          <td>{{ r?.AgroChemical?.Category || 'N/A' }}</td>
+          <td>{{ r.Quantity }}</td>
+          <td>{{ r?.Crop?.CropName || 'N/A' }}</td>
+          <td>{{ fmt(r.RequestDate) }}</td>
+          <td>
+            <span class="status-badge"
+                  [class.badge--approved]="(r.Status||'').toLowerCase()==='approved'"
+                  [class.badge--rejected]="(r.Status||'').toLowerCase()==='rejected'"
+                  [class.badge--pending]="(r.Status||'').toLowerCase()==='pending' || !r.Status">
+              {{ r.Status || 'Pending' }}
+            </span>
+          </td>
+          <td>
+            <div class="action-row">
+              <button class="act-btn act-btn--info"   (click)="openShowMore(r)">Show More</button>
+              <button class="act-btn act-btn--success"
+                      [disabled]="isUpdating(r.RequestId)"
+                      *ngIf="(r.Status||'').toLowerCase() !== 'approved'"
+                      (click)="setStatus(r, 'Approved')">Approve</button>
+              <button class="act-btn act-btn--danger"
+                      [disabled]="isUpdating(r.RequestId)"
+                      *ngIf="(r.Status||'').toLowerCase() !== 'rejected'"
+                      (click)="setStatus(r, 'Rejected')">Reject</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-muted text-center mt-3"
+       *ngIf="!loading && !errorMsg && filtered().length === 0">
+    No requests available.
+  </div>
+
+  <!-- Show More Modal -->
+  <div class="modal-overlay" *ngIf="showMoreOpen && activeItem">
+    <div class="modal-box">
+      <div class="modal-hdr">
+        <span class="modal-icon">📋</span>
+        <h6 class="modal-title">Request Details</h6>
+        <button class="modal-close" (click)="closeShowMore()">✕</button>
+      </div>
+      <div class="modal-body-content">
+        <div class="detail-grid">
+          <div class="detail-item"><span class="detail-key">Chemical Name</span><span class="detail-val">{{ activeItem?.AgroChemical?.Name || 'N/A' }}</span></div>
+          <div class="detail-item"><span class="detail-key">Brand</span><span class="detail-val">{{ activeItem?.AgroChemical?.Brand || 'N/A' }}</span></div>
+          <div class="detail-item"><span class="detail-key">Category</span><span class="detail-val">{{ activeItem?.AgroChemical?.Category || 'N/A' }}</span></div>
+          <div class="detail-item"><span class="detail-key">Unit</span><span class="detail-val">{{ activeItem?.AgroChemical?.Unit || 'N/A' }}</span></div>
+          <div class="detail-item"><span class="detail-key">Price Per Unit</span><span class="detail-val">{{ activeItem?.AgroChemical?.PricePerUnit || 'N/A' }}</span></div>
+          <div class="detail-item"><span class="detail-key">Crop Name</span><span class="detail-val">{{ activeItem?.Crop?.CropName || 'N/A' }}</span></div>
+          <div class="detail-item"><span class="detail-key">Crop Type</span><span class="detail-val">{{ activeItem?.Crop?.CropType || 'N/A' }}</span></div>
+          <div class="detail-item"><span class="detail-key">Quantity</span><span class="detail-val">{{ activeItem?.Quantity }}</span></div>
+          <div class="detail-item detail-item--full"><span class="detail-key">Request Date</span><span class="detail-val">{{ fmt(activeItem?.RequestDate) }}</span></div>
+          <div class="detail-item detail-item--full"><span class="detail-key">Description</span><span class="detail-val">{{ activeItem?.AgroChemical?.Description || 'N/A' }}</span></div>
+        </div>
+        <div *ngIf="activeItem?.AgroChemical?.Image" class="mt-3">
+          <span class="detail-key">Chemical Image</span>
+          <div class="mt-2">
+            <img [src]="activeItem?.AgroChemical?.Image" alt="Chemical"
+                 class="modal-img"/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-ftr">
+        <button class="modal-close-btn" (click)="closeShowMore()">Close</button>
+      </div>
+    </div>
+  </div>
+
+</section>

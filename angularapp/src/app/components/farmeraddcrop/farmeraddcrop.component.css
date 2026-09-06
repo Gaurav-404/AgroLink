@@ -1,0 +1,242 @@
+/* ── Google Font ── */
+/* ── Google Font — add Raleway ── */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@800&display=swap');
+/* ── Box Sizing Fix ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ── Page background — full viewport, centred ── */
+.page-bg {
+  min-height: 100vh;
+  background-color: #e8f5e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0.75rem;
+  font-family: 'Lora', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-bg .row {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* ── Card ── */
+.form-card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  width: 100%;
+}
+
+/* ── Card Header ── */
+.form-card-header {
+  background: linear-gradient(135deg, #1d6f42 0%, #145c36 100%);
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+/* ── Card Header h5 ── */
+.form-card-header h5 {
+  margin: 0;
+  color: #ffffff;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.header-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* ── Card Body ── */
+.form-card-body {
+  padding: 1.75rem 1.5rem;
+  width: 100%;
+}
+
+/* ── Field Groups ── */
+.form-group {
+  margin-bottom: 1.25rem;
+  width: 100%;
+}
+.form-group:last-of-type {
+  margin-bottom: 0;
+}
+
+/* ── Extra gap after description box ── */
+.form-group:has(textarea) {
+  margin-bottom: 1.875rem;
+}
+
+/* ── Field labels ── */
+.field-label {
+  display: flex;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+  margin-bottom: 0.35rem;
+}
+.required-star {
+  color: #dc2626;
+  margin-left: 2px;
+}
+.optional-tag {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: #9ca3af;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 6px;
+}
+
+/* ── Inputs, Selects, Textareas ── */
+.custom-input,
+.form-select,
+textarea.custom-input {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.5rem 0.875rem;
+  font-family: 'Lora', serif;
+  font-size: 0.92rem;
+  color: #111827;
+  background-color: #ffffff;
+  line-height: 1.5;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* ── Select Arrow ── */
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.875rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+/* ── Textarea — aligned width, less height ── */
+textarea.custom-input {
+  resize: vertical;
+  min-height: 65px;
+  width: 100%;
+}
+
+/* ── Placeholder ── */
+.custom-input::placeholder,
+textarea.custom-input::placeholder {
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* ── Focus ── */
+.custom-input:focus,
+.form-select:focus,
+textarea.custom-input:focus {
+  border-color: #1d6f42;
+  box-shadow: 0 0 0 3px rgba(29, 111, 66, 0.12);
+  outline: none;
+}
+
+/* ── Invalid ── */
+.custom-input.is-invalid,
+.form-select.is-invalid,
+textarea.custom-input.is-invalid {
+  border-color: #dc2626;
+  box-shadow: none;
+}
+.custom-input.is-invalid:focus,
+.form-select.is-invalid:focus,
+textarea.custom-input.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+
+/* ── Validation Message ── */
+.invalid-feedback {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #dc2626;
+  margin-top: 0.35rem;
+  line-height: 1.4;
+}
+
+/* ── Form footer ── */
+.form-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+/* ── Buttons ── */
+.btn-cancel {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.5rem 1.4rem;
+  font-family: 'Lora', serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-cancel:hover:not(:disabled) {
+  background-color: #e5e7eb;
+}
+.btn-cancel:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-submit {
+  background-color: #1d6f42;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.6rem;
+  font-family: 'Lora', serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+.btn-submit:hover:not(:disabled) {
+  background-color: #155e35;
+  box-shadow: 0 4px 12px rgba(29, 111, 66, 0.3);
+  transform: translateY(-1px);
+}
+.btn-submit:disabled {
+  background-color: #6b9e7e;
+  cursor: not-allowed;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .form-card-body { padding: 1.5rem 1rem; }
+  .form-footer    { padding: 1rem; flex-direction: column-reverse; }
+  .btn-cancel,
+  .btn-submit     { width: 100%; text-align: center; }
+  textarea.custom-input { width: 100%; }
+}
